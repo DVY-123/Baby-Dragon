@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Baby Dragon Pet</title>
+  <style>
+    body {
+      background: linear-gradient(#d0f0ff, #ffffff);
+      font-family: "Comic Sans MS", cursive, sans-serif;
+      text-align: center;
+      padding-top: 50px;
+    }
+    #dragon {
+      width: 200px;
+      height: 200px;
+      margin: auto;
+      background: url('https://i.imgur.com/TdE8OKa.png') no-repeat center/contain;
+      animation: float 3s ease-in-out infinite;
+      cursor: pointer;
+      position: relative;
+    }
+    @keyframes float {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-10px); }
+    }
+    #speech {
+      margin-top: 20px;
+      font-size: 1.3rem;
+      background: #ffe4fb;
+      border: 2px dashed #ff69b4;
+      padding: 10px;
+      border-radius: 12px;
+      display: inline-block;
+    }
+    #sparkle {
+      position: absolute;
+      width: 30px;
+      height: 30px;
+      background: url('https://i.imgur.com/UT2NQqK.png') no-repeat center/contain;
+      animation: sparkle 1s ease-out forwards;
+      pointer-events: none;
+    }
+    @keyframes sparkle {
+      0% { opacity: 1; transform: scale(0.5); }
+      100% { opacity: 0; transform: scale(1.5) translateY(-30px); }
+    }
+    .pet-button {
+      margin: 10px;
+      padding: 10px 20px;
+      font-size: 1rem;
+      background-color: #ffccff;
+      border: 2px solid #ff66cc;
+      border-radius: 10px;
+      cursor: pointer;
+    }
+    #moodIcon {
+      margin-top: 10px;
+      font-size: 2rem;
+    }
+  </style>
+</head>
+<body>
+  <h1>🐉 Your Baby Dragon 🐉</h1>
+  <div id="dragon" onclick="interact(event)"></div>
+  <div id="speech">Click me! I'm a baby dragon!</div><br>
+  <div id="moodIcon">😊</div>
+  <button class="pet-button" onclick="giveSnack()">🍓 Give Snack</button>
+  <button class="pet-button" onclick="goToBed()">🌙 Bedtime</button>
+
+  <script>
+    const phrases = [
+      "Squeee! 🐣",
+      "*Flap flap!* 🪽",
+      "I love you! 💖",
+      "Can I have a snack? 🍬",
+      "Nap time...? 😴",
+      "Let’s play again! 🎮"
+    ];
+
+    const snackResponses = [
+      "Yummy!! 🥰",
+      "More please! 🍪",
+      "So tasty! 😋",
+      "You're the best! 💕"
+    ];
+
+    function interact(event) {
+      const speech = document.getElementById("speech");
+      const mood = document.getElementById("moodIcon");
+      const randomIndex = Math.floor(Math.random() * phrases.length);
+      speech.textContent = phrases[randomIndex];
+      mood.textContent = "😊";
+      sparkle(event);
+    }
+
+    function giveSnack() {
+      const speech = document.getElementById("speech");
+      const mood = document.getElementById("moodIcon");
+      const snackIndex = Math.floor(Math.random() * snackResponses.length);
+      speech.textContent = snackResponses[snackIndex];
+      mood.textContent = "😋";
+    }
+
+    function goToBed() {
+      const speech = document.getElementById("speech");
+      const mood = document.getElementById("moodIcon");
+      speech.textContent = "Zzz... Goodnight! 🌙💤";
+      mood.textContent = "😴";
+    }
+
+    function sparkle(event) {
+      const dragon = document.getElementById("dragon");
+      const sparkle = document.createElement("div");
+      sparkle.id = "sparkle";
+      sparkle.style.left = (event.offsetX - 15) + "px";
+      sparkle.style.top = (event.offsetY - 15) + "px";
+      dragon.appendChild(sparkle);
+      setTimeout(() => sparkle.remove(), 1000);
+    }
+  </script>
+</body>
+</html>
